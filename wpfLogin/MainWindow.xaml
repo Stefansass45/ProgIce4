@@ -12,16 +12,16 @@
             <TextBox x:Name="logUsername"></TextBox>
             <Label>Password</Label>
             <TextBox x:Name="logPassword"></TextBox>
-            <Button x:Name="btnReg" Click="btnLog_Click">login</Button>
+            <Button x:Name="btnReg" Click="btnReg_Click">Register</Button>
             <TextBlock x:Name="lblReg" MouseLeftButtonDown="lblReg_MouseLeftButtonDown">No login? register here.</TextBlock>
         </StackPanel>
         
         <StackPanel x:Name="registerPanel" Visibility="Hidden">
             <Label>Username</Label>
-            <TextBox x:Name="Regusername"></TextBox>
+            <TextBox x:Name="RegUsername"></TextBox>
             <Label>Password</Label>
-            <TextBox x:Name="Regpassword"></TextBox>
-            <Button x:Name="btnLog" Click="btnLog_Click_1">login</Button>
+            <TextBox x:Name="RegPassword"></TextBox>
+            <Button x:Name="btnLog" Click="btnLog_Click">login</Button>
             <Label x:Name="lblLog" MouseLeftButtonDown="lblLog_MouseLeftButtonDown">Already have an account? login here.</Label>
         </StackPanel>
     </Grid>
