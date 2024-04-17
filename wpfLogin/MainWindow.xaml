@@ -7,22 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="934">
     <Grid>
-        <StackPanel x:Name="loginPanel">
+        <StackPanel x:Name="loginPanel" Visibility="Hidden">
             <Label>Username</Label>
             <TextBox x:Name="logUsername"></TextBox>
             <Label>Password</Label>
             <TextBox x:Name="logPassword"></TextBox>
-            <Button x:Name="btnReg" Click="btnReg_Click">Register</Button>
-            <TextBlock x:Name="lblReg" MouseLeftButtonDown="lblReg_MouseLeftButtonDown">No login? register here.</TextBlock>
+            <Button x:Name="btnReg" Click="btnLog_Click">Login</Button>
+            <Label x:Name="lblLog" MouseLeftButtonDown="lblLog_MouseLeftButtonDown">Not a user? Register Here</Label>
         </StackPanel>
         
-        <StackPanel x:Name="registerPanel" Visibility="Hidden">
+        <StackPanel x:Name="registerPanel" Visibility="Visible">
             <Label>Username</Label>
             <TextBox x:Name="RegUsername"></TextBox>
             <Label>Password</Label>
             <TextBox x:Name="RegPassword"></TextBox>
-            <Button x:Name="btnLog" Click="btnLog_Click">login</Button>
-            <Label x:Name="lblLog" MouseLeftButtonDown="lblLog_MouseLeftButtonDown">Already have an account? login here.</Label>
+            <Button x:Name="btnLog" Click="btnReg_Click">Register</Button>
+            <TextBlock x:Name="lblReg" MouseLeftButtonDown="lblReg_MouseLeftButtonDown">Already a user? Login Here</TextBlock>
         </StackPanel>
     </Grid>
 </Window>

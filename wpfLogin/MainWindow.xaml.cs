@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,7 +26,7 @@ namespace wpfLogin
         {
             if (LoginDB.isUsernameAvailable(RegUsername.Text))
             {
-                User newUser = new User(RegUsername.Text, RegPassword.Text);
+                User newUser = new User(RegUsername.Text.ToString(), RegPassword.Text);
                 RegUsername.Clear();
                 RegPassword.Clear();
 
@@ -54,10 +55,10 @@ namespace wpfLogin
 
         private void lblReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            registerPanel.Visibility = Visibility.Visible;
-            loginPanel.Visibility = Visibility.Hidden;
-            RegUsername.Clear();
-            RegPassword.Clear();
+            loginPanel.Visibility = Visibility.Visible;
+            registerPanel.Visibility = Visibility.Hidden;
+            logUsername.Clear();
+            logPassword.Clear();
         }
 
         private void btnLog_Click(object sender, RoutedEventArgs e)
@@ -73,6 +74,7 @@ namespace wpfLogin
 
             if (userLoginVerified)
             {
+                MessageBox.Show($"Welcome {LoginDB.currentLoggedOnUser.getUsername()}", "Login Success");
                 /*FrmDash formDash = new FrmDash();
                 this.Hide();
                 formDash.ShowDialog();*/
@@ -88,10 +90,10 @@ namespace wpfLogin
 
         private void lblLog_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            loginPanel.Visibility = Visibility.Visible;
-            registerPanel.Visibility = Visibility.Hidden;
-            logUsername.Clear();
-            logPassword.Clear();
+            registerPanel.Visibility = Visibility.Visible;
+            loginPanel.Visibility = Visibility.Hidden;
+            RegUsername.Clear();
+            RegPassword.Clear();
         }
     }
 }
