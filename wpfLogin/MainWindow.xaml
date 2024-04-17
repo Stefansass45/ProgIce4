@@ -1,0 +1,28 @@
+﻿<Window x:Class="wpfLogin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfLogin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="934">
+    <Grid>
+        <StackPanel x:Name="loginPanel">
+            <Label>Username</Label>
+            <TextBox x:Name="logUsername"></TextBox>
+            <Label>Password</Label>
+            <TextBox x:Name="logPassword"></TextBox>
+            <Button x:Name="btnReg" Click="btnLog_Click">login</Button>
+            <TextBlock x:Name="lblReg" MouseLeftButtonDown="lblReg_MouseLeftButtonDown">No login? register here.</TextBlock>
+        </StackPanel>
+        
+        <StackPanel x:Name="registerPanel" Visibility="Hidden">
+            <Label>Username</Label>
+            <TextBox x:Name="Regusername"></TextBox>
+            <Label>Password</Label>
+            <TextBox x:Name="Regpassword"></TextBox>
+            <Button x:Name="btnLog" Click="btnLog_Click_1">login</Button>
+            <Label x:Name="lblLog" MouseLeftButtonDown="lblLog_MouseLeftButtonDown">Already have an account? login here.</Label>
+        </StackPanel>
+    </Grid>
+</Window>
