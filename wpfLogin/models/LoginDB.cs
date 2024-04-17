@@ -1,9 +1,13 @@
-﻿using System.IO;
+﻿using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 
 namespace wpfLogin
 {
     public static class LoginDB
     {
+        private static string dbstring = "server=labVMH8OX\\SQLEXPRESS;database =progice4; Integrated Security = true;";
+        
         private static List<User> usersDB = new List<User>();
         public static User currentLoggedOnUser { get; set; }
 
@@ -13,19 +17,18 @@ namespace wpfLogin
             int counter = 0;
             bool userIsVerified = false;
 
-            while (counter < usersDB.Count)
+            DataTable loginTable = GETUserFromSQLDB(unverifiedUser.getUsername());
+
+            if (loginTable.Rows[0].ItemArray[1].ToString() == unverifiedUser.getUsername())
             {
-                if (usersDB[counter].getUsername() == unverifiedUser.getUsername())
+                if (loginTable.Rows[0].ItemArray[2].ToString() == unverifiedUser.getPassword())
                 {
-                    if (usersDB[counter].getPassword() == unverifiedUser.getPassword())
-                    {
-                        userIsVerified = true;
-                        currentLoggedOnUser = usersDB[counter];
-                        break;
-                    }
+                    userIsVerified = true;
+                    currentLoggedOnUser = new User(loginTable.Rows[0].ItemArray[1].ToString(), loginTable.Rows[0].ItemArray[2].ToString());
+                    return userIsVerified;
                 }
-                counter++;
             }
+
             return userIsVerified;
         }
 
@@ -43,12 +46,59 @@ namespace wpfLogin
 
         }
 
+        public static void AddUserToSQLDB (string username, string password) {            
+
+            using (SqlConnection _con = new SqlConnection(dbstring))
+            {
+                string queryStatement = $"insert into tbllogin (ID,username,password) values(2,'{username}', '{password}')";
+
+                _con.Open();
+
+                using (SqlCommand _cmd = new SqlCommand(queryStatement, _con))
+                {
+                    _cmd.CommandType = CommandType.Text;
+                    _cmd.ExecuteNonQuery();
+
+                }
+
+                _con.Close();
+            }
+        }
+
+        public static DataTable GETUserFromSQLDB(string username)
+        {
+            DataTable loginTable;
+
+            using (SqlConnection _con = new SqlConnection(dbstring))
+            {
+                string queryStatement = $"select * from tbllogin where username = '{username}'";
+
+                _con.Open();
+
+                using (SqlCommand _cmd = new SqlCommand(queryStatement, _con))
+                {
+                    _cmd.CommandType = CommandType.Text;
+
+                    loginTable = new DataTable("LoginTable");
+
+                    SqlDataAdapter _dap = new SqlDataAdapter(_cmd);
+
+                    _dap.Fill(loginTable);
+
+                }
+
+                _con.Close();
+            }
+            return loginTable;
+        }
+
         public static User addNewUser(User newUser)
         {
             //Check if username already exists
             if (isUsernameAvailable(newUser.getUsername()))
             {
                 usersDB.Add(newUser);
+                AddUserToSQLDB(newUser.getUsername(), newUser.getPassword());
                 return newUser;
             }
             else
